@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws InvalidUserCredentialsException {
-        return (UserDetails) userRepository.findByUsername(s).orElseThrow(()->new InvalidUserCredentialsException());
+        return userRepository.findByUsername(s).orElseThrow(()->new InvalidUserCredentialsException());
     }
 
 
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         if (username==null || username.isEmpty()  || password==null || password.isEmpty())
             throw new InvalidUserCredentialsException();
         if (!password.equals(repeatPassword))
-            throw new InvalidUserCredentialsException);
+            throw new InvalidUserCredentialsException();
         if(this.userRepository.findByUsername(username).isPresent())
             throw new InvalidUserCredentialsException();
         User user = new User(username,passwordEncoder.encode(password),userRole);
